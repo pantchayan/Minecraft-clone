@@ -68,11 +68,9 @@ let createTrunk = () => {
 let createTree = () => {
   const tree = new THREE.Group();
 
-
   let bush = createBush();
-  bush.position.set(0,0.5,0)
+  bush.position.set(0, 0.5, 0);
   tree.add(bush);
-
 
   let trunk = createTrunk();
   tree.add(trunk);
@@ -81,24 +79,29 @@ let createTree = () => {
 };
 
 let trees = [];
-let treesNum = 100;
+let treesNum = 1000;
 for (let i = 0; i < treesNum; i++) {
   trees[i] = createTree();
-  trees[i].position.set(Math.random() * 50 * (i%2==0?-1:1), 0, Math.random() * 50)
-  scene.add(trees[i])
+  trees[i].position.set(
+    Math.random() * 250 * (i % 2 == 0 ? -1 : 1),
+    0,
+    Math.random() * 250 * (Math.random() * 100 % 2 == 0 ? 1 : -1)
+  );
+  scene.add(trees[i]);
 }
 
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
-const planeGeometry = new THREE.PlaneGeometry(1000, 1000)
+const planeGeometry = new THREE.PlaneGeometry(500, 500);
+planeGeometry.wireframe = true;
 const planeMaterial = new THREE.MeshPhongMaterial();
-planeMaterial.color = new THREE.Color('#8FBC8F')
+planeMaterial.color = new THREE.Color("#8FBC8F");
 planeMaterial.side = THREE.DoubleSide;
-const plane = new THREE.Mesh(planeGeometry, planeMaterial)
-plane.position.set(0, -0.75, 0)
-plane.rotation.x=THREE.Math.degToRad(90);
-scene.add(plane)
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.position.set(0, -0.75, 0);
+plane.rotation.x = THREE.Math.degToRad(90);
+scene.add(plane);
 
 renderer.render(scene, camera);
 
